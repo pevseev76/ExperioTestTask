@@ -28,8 +28,20 @@ namespace DataManagementTest
             labels["third"] = "Marth";
             labels["fourth"] = "April";
 
+            Clear();
+
             var manager = new DataManager();
             manager.LoadLabels(labels);
+
+            var actualLabels = GetAllLabels();
+
+            foreach (var key in labels.Keys)
+            {
+                if (!actualLabels.Keys.Contains(key))
+                    Assert.Fail();
+
+                Assert.AreEqual(labels[key], actualLabels[key]);
+            }
         }
 
         private void Clear()
@@ -40,12 +52,40 @@ namespace DataManagementTest
 
                 string deleteAllQuery = "DELETE FROM Labels";
 
-                using (var command = new SqlCommand(deleteAllQuery))
+                using (var command = new SqlCommand(deleteAllQuery,connection))
                 {
-                    command.Connection = connection;
                     command.CommandType = System.Data.CommandType.Text;
                     command.ExecuteNonQuery();
                 }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        private IDictionary<string, string> GetAllLabels()
+        {
+            var result = new Dictionary<string, string>();
+            
+            try
+            {
+                SqlDataReader dataReader;
+                
+                connection.Open();
+
+                string selectAllLabelsQuery = "SELECT IdenticalOfNode, Label FROM Labels";
+
+                using (var command = new SqlCommand(selectAllLabelsQuery, connection))
+                {
+                    command.CommandType = System.Data.CommandType.Text;
+                    dataReader = command.ExecuteReader();
+                }
+
+                while (dataReader.Read())
+                    result[dataReader["IdenticalOfNode"].ToString()] = dataReader["Label"].ToString();
+                                
+                return result;
             }
             finally
             {
