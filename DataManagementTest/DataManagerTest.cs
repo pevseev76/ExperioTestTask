@@ -19,7 +19,7 @@ namespace DataManagementTest
         }
         
         [TestMethod]
-        void LoadLabelsTest()
+        public void LoadLabelsTest()
         {
             var labels = new Dictionary<string, string>();
 
