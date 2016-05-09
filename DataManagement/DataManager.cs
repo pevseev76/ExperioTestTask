@@ -10,6 +10,8 @@ namespace DataManagement
 {
     public class DataManager : IDataManager, IDisposable
     {
+        private const int idLength = 10;
+        
         #region Connection string parameters
 
         private const string dataSource = "Data Source=.\\SQLEXPRESS;";
@@ -34,10 +36,7 @@ namespace DataManagement
                 connection.Open();
 
                 foreach (var key in labels.Keys)
-                {
                     InsertLabel(key, labels[key]);
-                }
-
             }
             finally
             {
@@ -61,7 +60,35 @@ namespace DataManagement
 
         public void LoadAdjancentNodes(string nodeId, IList<string> adjancentNodes)
         {
-        
+            try
+            {
+                connection.Open();
+
+                for (int i = 0; i < adjancentNodes.Count; i++)
+                    InsertAdjancentNode(nodeId, adjancentNodes[i]);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        private void InsertAdjancentNode(string id, string adjancent)
+        {
+            using (var command = new SqlCommand("StoredProcedure1", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                var nodeId = new SqlParameter("@parameter1", System.Data.SqlDbType.Char, idLength);
+                nodeId.Value = id;
+                command.Parameters.Add(nodeId);
+
+                var adjancentId = new SqlParameter("@parameter2", System.Data.SqlDbType.Char, idLength);
+                adjancentId.Value = adjancent;
+                command.Parameters.Add(adjancentId);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Dispose()

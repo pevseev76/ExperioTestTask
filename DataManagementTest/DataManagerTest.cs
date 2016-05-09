@@ -30,7 +30,7 @@ namespace DataManagementTest
             labels["third"] = "Marth";
             labels["fourth"] = "April";
             labels["fifth"] = "May";
-            labels["sixh"] = "June";
+            labels["sixth"] = "June";
             labels["seventh"] = "July";
             labels["eighth"] = "August";
             labels["nineth"] = "September";
@@ -162,11 +162,14 @@ namespace DataManagementTest
                 while (dataReader.Read())
                 {
                     string key = dataReader["Id"].ToString();
-                    
+
                     if (!string.Equals(currentId, dataReader["Id"]))
+                    {
                         result[key] = new List<string>();
-                    else
-                        result[key].Add(dataReader["AdjancentId"].ToString());
+                        currentId = key;
+                    }
+                    
+                    result[key].Add(dataReader["AdjancentId"].ToString());
                 }
 
                 return result;
