@@ -58,7 +58,7 @@
     <ProjectReference Include="..\DataManagement\DataManagement.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>DataManagement</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Choose>
