@@ -47,7 +47,7 @@ namespace DataManagementTest
 
             foreach (var key in labels.Keys)
             {
-                var actualKey = key.PadRight(idLength);
+                string actualKey = key.PadRight(idLength);
 
                 if (!actualLabels.Keys.Contains(actualKey))
                     Assert.Fail();
@@ -68,6 +68,22 @@ namespace DataManagementTest
                 manager.LoadAdjancentNodes(key, adjancentNodes[key]);
 
             var actualAdjancentNodes = GetAllAdjancentNodes();
+
+            foreach (var key in adjancentNodes.Keys)
+            {
+                string actualKey = key.PadRight(idLength);
+
+                if (!actualAdjancentNodes.Keys.Contains(actualKey))
+                    Assert.Fail();
+
+                for (int i = 0; i < adjancentNodes[key].Count; i++)
+                {
+                    string adjancentNode = adjancentNodes[key][i].PadRight(idLength);
+
+                    if (!actualAdjancentNodes[actualKey].Contains(adjancentNode))
+                        Assert.Fail();
+                }
+            }
         }
 
         private void Clear()
