@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -28,6 +29,14 @@ namespace DataManagementTest
             labels["second"] = "February";
             labels["third"] = "Marth";
             labels["fourth"] = "April";
+            labels["fifth"] = "May";
+            labels["sixh"] = "June";
+            labels["seventh"] = "July";
+            labels["eighth"] = "August";
+            labels["nineth"] = "September";
+            labels["tenth"] = "October";
+            labels["eleventh"] = "November";
+            labels["twelveth"] = "Desember";
 
             Clear();
 
@@ -45,6 +54,20 @@ namespace DataManagementTest
 
                 Assert.AreEqual(labels[key], actualLabels[actualKey]);
             }
+
+            var adjancentNodes = new Dictionary<string, List<string>>();
+
+            adjancentNodes["first"] = (new string[] {"second", "third", "fourth" }).ToList();
+            adjancentNodes["second"] = (new string[] { "first", "third", "fourth", "sixth" }).ToList();
+            adjancentNodes["third"] = (new string[] { "seventh", "third", "first" }).ToList();
+            adjancentNodes["fourth"] = (new string[] { "seventh", "third", "fourth" }).ToList();
+            adjancentNodes["eleventh"] = (new string[] { "second", "third", "fourth" }).ToList();
+            adjancentNodes["seventh"] = (new string[] { "second", "fourth", "sixth", "tenth" }).ToList();
+
+            foreach (var key in adjancentNodes.Keys)
+                manager.LoadAdjancentNodes(key, adjancentNodes[key]);
+
+            var actualAdjancentNodes = GetAllAdjancentNodes();
         }
 
         private void Clear()
@@ -88,6 +111,48 @@ namespace DataManagementTest
                 while (dataReader.Read())
                     result[dataReader["IdenticalOfNode"].ToString()] = dataReader["Label"].ToString();
                                 
+                return result;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        private IDictionary<string, List<string>> GetAllAdjancentNodes()
+        {
+            var result = new Dictionary<string, List<string>>();
+
+            try
+            {
+                SqlDataReader dataReader;
+
+                connection.Open();
+
+                string selectAllAdjancentNodesQuery = "SELECT Labels.IdenticalOfNode AS Id, Labels1.IdenticalOfNode AS AdjancentId " +
+                    "FROM Labels CROSS JOIN Labels AS Labels1 "+
+                    "INNER JOIN AdjancentNodes ON " +
+                    "AdjancentNodes.NodeID = Labels.ID AND AdjancentNodes.AdjancentNode = Labels1.ID " +
+                    "ORDER BY AdjancentNodes.NodeId";
+
+                using (var command = new SqlCommand(selectAllAdjancentNodesQuery, connection))
+                {
+                    command.CommandType = System.Data.CommandType.Text;
+                    dataReader = command.ExecuteReader();
+                }
+
+                string currentId = string.Empty;
+
+                while (dataReader.Read())
+                {
+                    string key = dataReader["Id"].ToString();
+                    
+                    if (!string.Equals(currentId, dataReader["Id"]))
+                        result[key] = new List<string>();
+                    else
+                        result[key].Add(dataReader["AdjancentId"].ToString());
+                }
+
                 return result;
             }
             finally
