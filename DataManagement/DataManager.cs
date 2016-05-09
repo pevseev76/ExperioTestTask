@@ -10,11 +10,20 @@ namespace DataManagement
 {
     public class DataManager : IDataManager, IDisposable
     {
-        private const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog = NodesBD;Integrated Security=true; Pooling=false";
+        #region Connection string parameters
+
+        private const string dataSource = "Data Source=.\\SQLEXPRESS;";
+        private const string initialCatalog = "Initial Catalog = NodesBD;";
+        private const string integratedSecurity = "Integrated Security=true;";
+        private const string pooling = "Pooling=false";
+        
+        #endregion
+
         private readonly SqlConnection connection;
 
         public DataManager()
         {
+            string connectionString = dataSource + initialCatalog + integratedSecurity + pooling;
             connection = new SqlConnection(connectionString);
         }
 
@@ -24,15 +33,11 @@ namespace DataManagement
             {
                 connection.Open();
 
-                string insertLabelQuery = "INSERT INTO Labels (IdenticalOfNode, Label) VALUES (@id, @label)";
-
-                using (var command = new SqlCommand(insertLabelQuery, connection))
+                foreach (var key in labels.Keys)
                 {
-                    foreach (var key in labels.Keys)
-                    {
-                        InsertLabel(key, labels[key]);
-                    }
+                    InsertLabel(key, labels[key]);
                 }
+
             }
             finally
             {

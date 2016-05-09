@@ -1,5 +1,4 @@
 ﻿using System;
-//using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,6 +9,7 @@ namespace DataManagementTest
     [TestClass]
     public class DataManagerTest
     {
+        private const int idLength = 10;
         private const string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog = NodesBD;Integrated Security=true;Pooling=false";
         private SqlConnection connection = null;
 
@@ -35,11 +35,10 @@ namespace DataManagementTest
             manager.LoadLabels(labels);
 
             var actualLabels = GetAllLabels();
-            //var actualKeys = actualLabels.Keys.Select(x => x.Trim());
 
             foreach (var key in labels.Keys)
             {
-                var actualKey = key.PadRight(10);
+                var actualKey = key.PadRight(idLength);
 
                 if (!actualLabels.Keys.Contains(actualKey))
                     Assert.Fail();
