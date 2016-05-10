@@ -38,8 +38,6 @@ namespace DataManagementTest
             labels["eleventh"] = "November";
             labels["twelveth"] = "Desember";
 
-            Clear();
-
             var manager = new DataManager();
             manager.LoadLabels(labels);
 
@@ -83,26 +81,6 @@ namespace DataManagementTest
                     if (!actualAdjancentNodes[actualKey].Contains(adjancentNode))
                         Assert.Fail();
                 }
-            }
-        }
-
-        private void Clear()
-        {
-            try
-            {
-                connection.Open();
-
-                string deleteAllQuery = "DELETE FROM Labels";
-
-                using (var command = new SqlCommand(deleteAllQuery,connection))
-                {
-                    command.CommandType = System.Data.CommandType.Text;
-                    command.ExecuteNonQuery();
-                }
-            }
-            finally
-            {
-                connection.Close();
             }
         }
 
