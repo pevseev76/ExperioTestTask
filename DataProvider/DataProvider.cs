@@ -58,7 +58,7 @@ namespace DataProvider
             return result;
         }
 
-        public IList<string> GetAdjancentNodes(string nodeId)
+        public IDictionary<string, IList<string>> GetAdjacentNodes()
         {
             throw new NotImplementedException();
         }

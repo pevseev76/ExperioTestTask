@@ -14,6 +14,6 @@ namespace DataProvider
         IDictionary<string, string> GetLabels();
 
         [OperationContract]
-        IList<string> GetAdjancentNodes(string nodeId);
+        IDictionary<string, IList<string>> GetAdjacentNodes();
     }
 }
