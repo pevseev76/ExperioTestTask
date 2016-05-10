@@ -42,8 +42,7 @@ namespace DataManagement
             {
                 connection.Close();
             }
-            
-        }
+         }
 
         private void InsertLabel(string id, string label)
         {

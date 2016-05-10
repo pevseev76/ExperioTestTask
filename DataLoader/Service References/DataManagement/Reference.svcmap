@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6a070178-9b80-4ac8-b054-822703c2e049" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8000/DataManagement/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d1113f9c-9734-4d82-ae02-7bff32e6c640" SourceId="1" SourceUrl="http://localhost:8000/DataManagement/?xsd=xsd0" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="d0f31474-45e2-4c87-9db2-6664c745afe1" SourceId="1" SourceUrl="http://localhost:8000/DataManagement/?xsd=xsd2" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="c201a21d-15f1-4cba-a52e-f30c1a4db317" SourceId="1" SourceUrl="http://localhost:8000/DataManagement/?disco" />
+    <MetadataFile FileName="DataManager.wsdl" MetadataType="Wsdl" ID="f2ff17d1-5f63-4a13-8695-81732ca36c11" SourceId="1" SourceUrl="http://localhost:8000/DataManagement/?wsdl" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="051937ce-9d36-4b03-b647-576c7a7b1c3c" SourceId="1" SourceUrl="http://localhost:8000/DataManagement/?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

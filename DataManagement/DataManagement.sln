@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagementTest", "..\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "..\Host\Host.csproj", "{AA806C13-E529-41BB-8005-BE882E9D8DA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLoader", "DataLoader\DataLoader.csproj", "{0952EBF9-272D-41DD-8EF8-F099D65C1D47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLoader", "..\DataLoader\DataLoader.csproj", "{DCD83450-7C70-4D41-9AF8-6A8AF6CAC0B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,10 @@ Global
 		{AA806C13-E529-41BB-8005-BE882E9D8DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA806C13-E529-41BB-8005-BE882E9D8DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA806C13-E529-41BB-8005-BE882E9D8DA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0952EBF9-272D-41DD-8EF8-F099D65C1D47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0952EBF9-272D-41DD-8EF8-F099D65C1D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0952EBF9-272D-41DD-8EF8-F099D65C1D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0952EBF9-272D-41DD-8EF8-F099D65C1D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD83450-7C70-4D41-9AF8-6A8AF6CAC0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD83450-7C70-4D41-9AF8-6A8AF6CAC0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD83450-7C70-4D41-9AF8-6A8AF6CAC0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD83450-7C70-4D41-9AF8-6A8AF6CAC0B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
