@@ -34,6 +34,7 @@ namespace DataManagement
             try
             {
                 connection.Open();
+                Clear();
 
                 foreach (var key in labels.Keys)
                     InsertLabel(key, labels[key]);
@@ -43,6 +44,17 @@ namespace DataManagement
                 connection.Close();
             }
          }
+
+        private void Clear()
+        {
+            string deleteAllQuery = "DELETE FROM Labels";
+
+            using (var command = new SqlCommand(deleteAllQuery, connection))
+            {
+                command.CommandType = System.Data.CommandType.Text;
+                command.ExecuteNonQuery();
+            }
+        }
 
         private void InsertLabel(string id, string label)
         {
