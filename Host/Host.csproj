@@ -53,6 +53,10 @@
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>DataManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataProvider\DataProvider.csproj">
+      <Project>{63ccd7ed-2929-4f82-bf2f-78eb23696aba}</Project>
+      <Name>DataProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
