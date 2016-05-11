@@ -123,15 +123,9 @@ namespace DataManagementTest
 
                 connection.Open();
 
-                string selectAllAdjancentNodesQuery = "SELECT Labels.IdenticalOfNode AS Id, Labels1.IdenticalOfNode AS AdjancentId " +
-                    "FROM Labels CROSS JOIN Labels AS Labels1 "+
-                    "INNER JOIN AdjancentNodes ON " +
-                    "AdjancentNodes.NodeID = Labels.ID AND AdjancentNodes.AdjancentNode = Labels1.ID " +
-                    "ORDER BY AdjancentNodes.NodeId";
-
-                using (var command = new SqlCommand(selectAllAdjancentNodesQuery, connection))
+                using (var command = new SqlCommand("StoredProcedure2", connection))
                 {
-                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
                     dataReader = command.ExecuteReader();
                 }
 
