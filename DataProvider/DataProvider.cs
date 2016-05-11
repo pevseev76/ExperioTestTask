@@ -60,7 +60,41 @@ namespace DataProvider
 
         public IDictionary<string, IList<string>> GetAdjacentNodes()
         {
-            throw new NotImplementedException();
+            var result = new Dictionary<string, IList<string>>();
+
+            try
+            {
+                SqlDataReader dataReader;
+
+                connection.Open();
+
+                using (var command = new SqlCommand("StoredProcedure2", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    dataReader = command.ExecuteReader();
+                }
+
+                string currentId = string.Empty;
+
+                while (dataReader.Read())
+                {
+                    string key = dataReader["Id"].ToString();
+
+                    if (!string.Equals(currentId, dataReader["Id"]))
+                    {
+                        result[key] = new List<string>();
+                        currentId = key;
+                    }
+
+                    result[key].Add(dataReader["AdjancentId"].ToString());
+                }
+
+                return result;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void Dispose()
