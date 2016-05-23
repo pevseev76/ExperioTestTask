@@ -17,6 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThinClient", "..\ThinClient
 	ProjectSection(ProjectDependencies) = postProject
 		{63CCD7ED-2929-4F82-BF2F-78EB23696ABA} = {63CCD7ED-2929-4F82-BF2F-78EB23696ABA}
 	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphManipulation", "..\GraphManipulation\GraphManipulation.csproj", "{3B92184C-261A-480F-BE80-AD4909CDDD29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,11 +48,14 @@ Global
 		{238B5BEB-13F0-4C9E-9154-CCF12F0A238E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{238B5BEB-13F0-4C9E-9154-CCF12F0A238E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{238B5BEB-13F0-4C9E-9154-CCF12F0A238E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{238B5BEB-13F0-4C9E-9154-CCF12F0A238E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88BB33DD-C08B-415D-A209-B78ECE60A72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88BB33DD-C08B-415D-A209-B78ECE60A72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88BB33DD-C08B-415D-A209-B78ECE60A72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88BB33DD-C08B-415D-A209-B78ECE60A72D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B92184C-261A-480F-BE80-AD4909CDDD29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B92184C-261A-480F-BE80-AD4909CDDD29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B92184C-261A-480F-BE80-AD4909CDDD29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B92184C-261A-480F-BE80-AD4909CDDD29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
