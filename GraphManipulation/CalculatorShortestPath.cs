@@ -78,7 +78,7 @@ namespace GraphManipulation
                 if (string.Equals(adjacentNodes[i], secondID))
                     return list;
 
-                marked.Add(ribs[last][i]);
+                marked.Add(adjacentNodes[i]);
                 path.Enqueue(list);
             }
 
@@ -87,7 +87,25 @@ namespace GraphManipulation
 
         private IList<string> GetAdjacentNodes(string id)
         {
-            throw new NotImplementedException();
+            var result = new List<string>();
+
+            SqlDataReader dataReader;
+
+            using (var command = new SqlCommand("StoredProcedure3", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                var nodeId = new SqlParameter("@parameter1", System.Data.SqlDbType.Char, idLength);
+                nodeId.Value = id;
+                command.Parameters.Add(nodeId);
+
+                dataReader = command.ExecuteReader();
+            }
+
+            while (dataReader.Read())
+                result.Add(dataReader["IdenticalOfNode"].ToString());
+            
+            return result;
         }
 
         public void Dispose()
