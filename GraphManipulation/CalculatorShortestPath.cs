@@ -103,7 +103,7 @@ namespace GraphManipulation
             }
 
             while (dataReader.Read())
-                result.Add(dataReader["IdenticalOfNode"].ToString());
+                result.Add(dataReader["IdenticalOfNode"].ToString().Trim());
             
             return result;
         }

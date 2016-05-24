@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Linq;
 using GraphManipulation;
 
 namespace GraphManipulatorTest
@@ -40,6 +41,45 @@ namespace GraphManipulatorTest
                 var path = manipulator.CalculateShortestPath("first", "second");
 
                 Assert.IsNull(path);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [TestMethod]
+        public void TestOneRib()
+        {
+            var labels = new Dictionary<string, string>();
+
+            labels["first"] = "January";
+            labels["second"] = "February";
+
+            try
+            {
+                connection.Open();
+
+                Clear();
+
+                foreach (var key in labels.Keys)
+                    InsertLabel(key, labels[key]);
+
+                var adjacentNodes = new Dictionary<string, List<string>>();
+
+                adjacentNodes["first"] = (new string[] { "second" }).ToList();
+
+                foreach (var key in adjacentNodes.Keys)
+                    for (int i = 0; i < adjacentNodes[key].Count; i++)
+                        InsertAdjacentNode(key, adjacentNodes[key][i]);
+
+                var manipulator = new CalculatorShortestPath();
+                var path = manipulator.CalculateShortestPath("first", "second");
+
+                Assert.IsNotNull(path);
+                Assert.AreEqual(2, path.Count);
+                Assert.AreEqual("first", path[0]);
+                Assert.AreEqual("second", path[1]);
             }
             finally
             {
