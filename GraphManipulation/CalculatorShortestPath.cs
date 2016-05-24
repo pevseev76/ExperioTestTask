@@ -104,6 +104,8 @@ namespace GraphManipulation
 
             while (dataReader.Read())
                 result.Add(dataReader["IdenticalOfNode"].ToString().Trim());
+
+            dataReader.Dispose();
             
             return result;
         }
