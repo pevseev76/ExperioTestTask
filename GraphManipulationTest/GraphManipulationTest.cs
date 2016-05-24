@@ -70,5 +70,23 @@ namespace GraphManipulatorTest
                 command.ExecuteNonQuery();
             }
         }
+
+        private void InsertAdjacentNode(string id, string adjancent)
+        {
+            using (var command = new SqlCommand("StoredProcedure1", connection))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                var nodeId = new SqlParameter("@parameter1", System.Data.SqlDbType.Char, idLength);
+                nodeId.Value = id;
+                command.Parameters.Add(nodeId);
+
+                var adjancentId = new SqlParameter("@parameter2", System.Data.SqlDbType.Char, idLength);
+                adjancentId.Value = adjancent;
+                command.Parameters.Add(adjancentId);
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
