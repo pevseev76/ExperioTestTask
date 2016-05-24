@@ -102,10 +102,15 @@ namespace GraphManipulation
                 dataReader = command.ExecuteReader();
             }
 
-            while (dataReader.Read())
-                result.Add(dataReader["IdenticalOfNode"].ToString().Trim());
-
-            dataReader.Dispose();
+            try
+            {
+                while (dataReader.Read())
+                    result.Add(dataReader["IdenticalOfNode"].ToString().Trim());
+            }
+            finally
+            {
+                dataReader.Dispose();
+            }
             
             return result;
         }
