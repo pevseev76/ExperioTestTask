@@ -174,6 +174,49 @@ namespace GraphManipulatorTest
             }
         }
 
+        [TestMethod]
+        public void TestWidth()
+        {
+            var labels = new Dictionary<string, string>();
+
+            labels["first"] = "January";
+            labels["second"] = "February";
+            labels["third"] = "Marth";
+            labels["fourth"] = "April";
+
+            try
+            {
+                connection.Open();
+
+                Clear();
+
+                foreach (var key in labels.Keys)
+                    InsertLabel(key, labels[key]);
+
+                var adjacentNodes = new Dictionary<string, List<string>>();
+
+                adjacentNodes["first"] = (new string[] { "second", "third" }).ToList();
+                adjacentNodes["second"] = (new string[] { "third" }).ToList();
+                adjacentNodes["third"] = (new string[] { "fourth" }).ToList();
+
+                foreach (var key in adjacentNodes.Keys)
+                    for (int i = 0; i < adjacentNodes[key].Count; i++)
+                        InsertAdjacentNode(key, adjacentNodes[key][i]);
+
+                var manipulator = new CalculatorShortestPath();
+                var path = manipulator.CalculateShortestPath("first", "third");
+
+                Assert.IsNotNull(path);
+                Assert.AreEqual(2, path.Count);
+                Assert.AreEqual("first", path[0]);
+                Assert.AreEqual("third", path[1]);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         private void Clear()
         {
             string deleteAllQuery = "DELETE FROM Labels";
