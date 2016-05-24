@@ -262,6 +262,53 @@ namespace GraphManipulatorTest
             }
         }
 
+        [TestMethod]
+        public void TestBeginNotFromFirst()
+        {
+            var labels = new Dictionary<string, string>();
+
+            labels["first"] = "January";
+            labels["second"] = "February";
+            labels["third"] = "Marth";
+            labels["fourth"] = "April";
+            labels["fifth"] = "May";
+
+            try
+            {
+                connection.Open();
+
+                Clear();
+
+                foreach (var key in labels.Keys)
+                    InsertLabel(key, labels[key]);
+
+                var adjacentNodes = new Dictionary<string, List<string>>();
+
+                adjacentNodes["first"] = (new string[] { "third" }).ToList();
+                adjacentNodes["second"] = (new string[] { "first", "fifth" }).ToList();
+                adjacentNodes["third"] = (new string[] { "first", "fourth" }).ToList();
+                adjacentNodes["fifth"] = (new string[] { "first", "fifth", "second", "third" }).ToList();
+
+                foreach (var key in adjacentNodes.Keys)
+                    for (int i = 0; i < adjacentNodes[key].Count; i++)
+                        InsertAdjacentNode(key, adjacentNodes[key][i]);
+
+                var manipulator = new CalculatorShortestPath();
+                var path = manipulator.CalculateShortestPath("second", "fourth");
+
+                Assert.IsNotNull(path);
+                Assert.AreEqual(4, path.Count);
+                Assert.AreEqual("second", path[0]);
+                Assert.AreEqual("first", path[1]);
+                Assert.AreEqual("third", path[2]);
+                Assert.AreEqual("fourth", path[3]);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         private void Clear()
         {
             string deleteAllQuery = "DELETE FROM Labels";
