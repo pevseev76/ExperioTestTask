@@ -57,6 +57,10 @@
       <Project>{63ccd7ed-2929-4f82-bf2f-78eb23696aba}</Project>
       <Name>DataProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GraphManipulation\GraphManipulation.csproj">
+      <Project>{3b92184c-261a-480f-be80-ad4909cddd29}</Project>
+      <Name>GraphManipulation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

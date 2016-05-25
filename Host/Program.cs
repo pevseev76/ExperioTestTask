@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using DataManagement;
 using DataProvider;
+using GraphManipulation;
 
 namespace Host
 {
@@ -17,55 +18,39 @@ namespace Host
 
         private const string dataProviderServiceName = "DataProvider";
         private const string dataProviderServiceAddress = "http://localhost:8000/DataProvider/";
+
+        private const string graphManipulationServiceName = "GraphManipulation";
+        private const string graphManipulationServiceAddress = "http://localhost:8000/GraphManipulation/";
         
         static void Main(string[] args)
         {
-            /* var baseAddress = new Uri("http://localhost:8000/DataManagement/");
-            var selfHost = new ServiceHost(typeof(DataManager), baseAddress);
-
-            try
-            {
-                selfHost.AddServiceEndpoint(typeof(IDataManager), new WSHttpBinding(), "DataManager");
-
-                var smb = new ServiceMetadataBehavior() { HttpGetEnabled = true };
-                selfHost.Description.Behaviors.Add(smb);
-
-                selfHost.Open();
-
-                Console.WriteLine("The DataManager service has been started. Please <ENTER> to terminate it.");
-                Console.WriteLine();
-                Console.ReadLine();
-
-                selfHost.Close();
-            }
-            catch (CommunicationException e)
-            {
-                Console.WriteLine("An exception occured {0} ", e.Message);
-                selfHost.Abort();
-            } */
-
             var dataManagerHost = CreateHost(dataManagerServiceAddress, typeof(DataManager), typeof(IDataManager), dataManagerServiceName);
             var dataProviderHost = CreateHost(dataProviderServiceAddress, typeof(DataProvider.DataProvider), typeof(IDataProvider), dataProviderServiceName);
+            var graphManipulationHost = CreateHost(graphManipulationServiceAddress, typeof(CalculatorShortestPath), typeof(ICalculatorShortestPath), graphManipulationServiceName);
 
             try
             {
                 dataManagerHost.Open();
                 dataProviderHost.Open();
+                graphManipulationHost.Open();
 
                 Console.WriteLine("The " + dataManagerServiceName + "service has been started.");
                 Console.WriteLine("The " + dataProviderServiceName + "service has been started.");
+                Console.WriteLine("The " + graphManipulationServiceName + "service has been started.");
                 Console.WriteLine("Please <ENTER> to terminate its.");
                 Console.WriteLine();
                 Console.ReadLine();
 
                 dataManagerHost.Close();
                 dataProviderHost.Close();
+                graphManipulationHost.Close();
             }
             catch (CommunicationException e)
             {
                 Console.WriteLine("An exception occured {0} ", e.Message);
                 dataManagerHost.Abort();
                 dataProviderHost.Abort();
+                graphManipulationHost.Abort();
             } 
         }
 
