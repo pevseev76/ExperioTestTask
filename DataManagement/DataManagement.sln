@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphManipulation", "..\Gra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphManipulatorTest", "..\GraphManipulationTest\GraphManipulatorTest.csproj", "{FD69DD73-EF02-47CD-88CC-E0C2D5C519BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLoaderTest", "..\DataLoaderTest\DataLoaderTest.csproj", "{C4B414E8-CE50-4489-ACF3-F728A6054803}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{FD69DD73-EF02-47CD-88CC-E0C2D5C519BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD69DD73-EF02-47CD-88CC-E0C2D5C519BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD69DD73-EF02-47CD-88CC-E0C2D5C519BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B414E8-CE50-4489-ACF3-F728A6054803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B414E8-CE50-4489-ACF3-F728A6054803}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B414E8-CE50-4489-ACF3-F728A6054803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B414E8-CE50-4489-ACF3-F728A6054803}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
