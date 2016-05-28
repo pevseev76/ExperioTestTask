@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Castle.Windsor;
+using Castle.MicroKernel.Registration;
 
 namespace ThinClient
 {
@@ -20,13 +22,19 @@ namespace ThinClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly WindsorContainer container = new WindsorContainer();
+        
         public IGraph Graph { get; set;}
         
         public MainWindow()
         {
             InitializeComponent();
 
-            Graph = new GraphDataContext();
+            container.Register(Component.For<DataProvider.IDataProvider>().ImplementedBy<DataProvider.DataProviderClient>());
+            
+            var client = container.Resolve<DataProvider.IDataProvider>();
+            Graph = new GraphDataContext(client);
+            
             DataContext = Graph;
         }
 

@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProviderTest", "..\DataProviderTest\DataProviderTest.csproj", "{238B5BEB-13F0-4C9E-9154-CCF12F0A238E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThinClient", "..\ThinClient\ThinClient.csproj", "{88BB33DD-C08B-415D-A209-B78ECE60A72D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{63CCD7ED-2929-4F82-BF2F-78EB23696ABA} = {63CCD7ED-2929-4F82-BF2F-78EB23696ABA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
