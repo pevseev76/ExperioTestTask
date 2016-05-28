@@ -13,8 +13,14 @@
         </Grid.RowDefinitions>
         
         <ListBox x:Name="ribsList" Margin="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Ribs}" SelectionChanged="nodesList_SelectionChanged">
                 
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding BeginX}" Y1="{Binding BeginY}" X2="{Binding EndX}" Y2="{Binding EndY}" Stroke="{Binding LineColor}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
        </ListBox>
 
         <ListBox x:Name="nodesList" Background="#00FFFFFF" Margin="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
