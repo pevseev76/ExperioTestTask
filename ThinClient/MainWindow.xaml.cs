@@ -20,13 +20,19 @@ namespace ThinClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IGraph graph = null;
+        public IGraph Graph { get; set;}
         
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = graph;
+            DataContext = Graph;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(Graph!= null)
+                Graph.Load();
         }
     }
 }
