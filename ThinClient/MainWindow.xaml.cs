@@ -26,6 +26,7 @@ namespace ThinClient
         {
             InitializeComponent();
 
+            Graph = new GraphDataContext();
             DataContext = Graph;
         }
 
