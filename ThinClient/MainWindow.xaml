@@ -18,10 +18,30 @@
        </ListBox>
 
         <ListBox x:Name="nodesList" Background="#00FFFFFF" Margin="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Nodes}" SelectionChanged="nodesList_SelectionChanged">
+            
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Margin="100" Width="50" Height="50">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Ellipse Width="50" Height="50" Fill="{Binding NodeBackground}" Stroke="{Binding NodeBorder}"/>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Content="{Binding NodeLabel}"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
 
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding TotalWidth}"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            
         </ListBox>
-
         
         <Button Content="Calculate shortest path" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" Margin="5" VerticalAlignment="Stretch"/>
     </Grid>

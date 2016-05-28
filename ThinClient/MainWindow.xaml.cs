@@ -34,5 +34,13 @@ namespace ThinClient
             if(Graph!= null)
                 Graph.Load();
         }
+
+        private void nodesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listBox = sender as ListBox;
+
+            if(listBox != null)
+                listBox.SelectedIndex = -1;
+        }
     }
 }

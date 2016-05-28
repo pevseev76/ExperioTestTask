@@ -11,9 +11,9 @@ namespace ThinClient
     public class NodeViewModel
     {
         string ID { get; set; }
-        string Label { get; set; }
+        string NodeLabel { get; set; }
         FrameworkElement Element { get; set; }
-        Color Background { get; set; }
-        Color Border { get; set; }
+        Color NodeBackground { get; set; }
+        Color NodeBorder { get; set; }
     }
 }
