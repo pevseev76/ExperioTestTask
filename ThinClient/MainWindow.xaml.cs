@@ -20,9 +20,13 @@ namespace ThinClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IGraph graph = null;
+        
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = graph;
         }
     }
 }
