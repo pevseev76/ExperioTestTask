@@ -17,6 +17,8 @@ namespace ThinClient
 
         private static readonly Color totalNodeBackground = Colors.Yellow;
         private static readonly Color totalColor = Colors.Black;
+        private static readonly Color firstPointColor = Colors.Violet;
+        private static readonly Color secondPointColor = Colors.LightBlue;
 
         #endregion
 
@@ -53,12 +55,15 @@ namespace ThinClient
 
         public ObservableCollection<RibViewModel> Ribs { get; private set; }
 
+        public List<string> ChoosedPoints { get; set; }
+
         public GraphDataContext(DataProvider.IDataProvider client, UIElement mainContainer)
         {
             dataProviderClient = client;
 
             Nodes = new ObservableCollection<NodeViewModel>();
             Ribs = new ObservableCollection<RibViewModel>();
+            ChoosedPoints = new List<string>();
             this.mainContainer = mainContainer;
         }
 
@@ -150,11 +155,50 @@ namespace ThinClient
                         BeginY = begin.Y - GraphMargin.Top - 1 - Offset,
                         EndX = end.X - GraphMargin.Left,
                         EndY = end.Y - GraphMargin.Top - 1 - Offset,
-                        LineColor = new SolidColorBrush(totalColor)
+                        LineColor = new SolidColorBrush(totalColor),
+                        BeginId = Nodes[i].ID,
+                        EndId = nodeIn.ID
+
                     });
 
                     Offset = Math.Max(Offset, Math.Max(begin.Y - GraphMargin.Top - 1,end.Y - GraphMargin.Top - 1));
                 }
+            }
+        }
+
+        public void PointChoosed(FrameworkElement element)
+        {
+            var node = element.DataContext as NodeViewModel;
+
+            if (node == null)
+                return;
+            
+            if (ChoosedPoints.Count == 0)
+            {
+                ChoosedPoints.Add(node.ID);
+                node.NodeBackground = new SolidColorBrush(firstPointColor);
+                return;
+            }
+
+            if (ChoosedPoints.Count == 1)
+            {
+                ChoosedPoints.Add(node.ID);
+                node.NodeBackground = new SolidColorBrush(secondPointColor);
+                return; 
+            }
+
+            if (ChoosedPoints.Count == 2)
+            {
+                var firstNode = Nodes.Where(x => string.Equals(x.ID, ChoosedPoints[0])).First();
+                firstNode.NodeBackground = new SolidColorBrush(totalNodeBackground);
+                ChoosedPoints.RemoveAt(0);
+
+                var secondNode = Nodes.Where(x => string.Equals(x.ID, ChoosedPoints[0])).First();
+                secondNode.NodeBackground = new SolidColorBrush(firstPointColor);
+                
+                ChoosedPoints.Add(node.ID);
+                node.NodeBackground = new SolidColorBrush(secondPointColor);
+
             }
         }
 

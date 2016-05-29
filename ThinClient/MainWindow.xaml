@@ -40,7 +40,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Button Width="{Binding Radius}" Height="{Binding Radius}" Margin="{Binding Distance}" 
-                            VerticalAlignment="Top" HorizontalAlignment="Left" Loaded="Button_Loaded">
+                            VerticalAlignment="Top" HorizontalAlignment="Left" Loaded="Button_Loaded" Click="Button_Click">
 
                         <Button.Template>
                             <ControlTemplate>

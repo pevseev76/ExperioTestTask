@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace ThinClient
 {
@@ -15,5 +16,6 @@ namespace ThinClient
         ObservableCollection<RibViewModel> Ribs { get; }
         void LoadPoints();
         void LoadRibs();
+        void PointChoosed(FrameworkElement element);
     }
 }

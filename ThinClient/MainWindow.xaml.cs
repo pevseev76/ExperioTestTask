@@ -75,5 +75,10 @@ namespace ThinClient
             if (nodesCounter >= Graph.Nodes.Count)
                 Graph.LoadRibs();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Graph.PointChoosed(sender as FrameworkElement);
+        }
     }
 }

@@ -21,8 +21,7 @@ namespace ThinClient
 
         public string BeginId { get; set; }
         public string EndId { get; set; }
-        public double Heigth { get; set; }
-
+       
         public double BeginX
         {
             get { return beginX; }
