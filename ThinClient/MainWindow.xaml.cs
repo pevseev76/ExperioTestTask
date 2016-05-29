@@ -13,24 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Castle.Windsor;
-using Castle.MicroKernel.Registration;
+using Registration = Castle.MicroKernel.Registration;
+using System.ComponentModel;
 
 namespace ThinClient
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private readonly WindsorContainer container = new WindsorContainer();
-        
-        public IGraph Graph { get; set;}
+
+        public GraphDataContext Graph { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         
         public MainWindow()
         {
             InitializeComponent();
 
-            container.Register(Component.For<DataProvider.IDataProvider>().ImplementedBy<DataProvider.DataProviderClient>());
+            container.Register(Registration.Component.For<DataProvider.IDataProvider>().ImplementedBy<DataProvider.DataProviderClient>());
             
             var client = container.Resolve<DataProvider.IDataProvider>();
             Graph = new GraphDataContext(client);
