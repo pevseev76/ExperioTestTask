@@ -15,12 +15,13 @@ namespace ThinClient
         private double endX;
         private double endY;
 
-        private Color lineColor;
+        private Brush lineColor;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string BeginId { get; set; }
         public string EndId { get; set; }
+        public double Heigth { get; set; }
 
         public double BeginX
         {
@@ -29,11 +30,7 @@ namespace ThinClient
             set
             {
                 beginX = value;
-
-                var eh = PropertyChanged;
-
-                if (eh != null)
-                    eh(this, new PropertyChangedEventArgs("BeginX"));
+                OnPropertyChanged("BeginX");
             }
         }
 
@@ -44,11 +41,7 @@ namespace ThinClient
             set
             {
                 beginY = value;
-
-                var eh = PropertyChanged;
-
-                if (eh != null)
-                    eh(this, new PropertyChangedEventArgs("BeginY"));
+                OnPropertyChanged("BeginY");
             }
         }
 
@@ -59,11 +52,7 @@ namespace ThinClient
             set
             {
                 endX = value;
-
-                var eh = PropertyChanged;
-
-                if (eh != null)
-                    eh(this, new PropertyChangedEventArgs("EndX"));
+                OnPropertyChanged("EndX");
             }
         }
 
@@ -74,27 +63,27 @@ namespace ThinClient
             set
             {
                 endY = value;
-
-                var eh = PropertyChanged;
-
-                if (eh != null)
-                    eh(this, new PropertyChangedEventArgs("EndY"));
+                OnPropertyChanged("EndY");
             }
         }
 
-        public Color LineColor
+        public Brush LineColor
         {
             get { return lineColor; }
 
             set
             {
                 lineColor = value;
-
-                var eh = PropertyChanged;
-
-                if (eh != null)
-                    eh(this, new PropertyChangedEventArgs("LineColor"));
+                OnPropertyChanged("LineColor");
             }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            var eh = PropertyChanged;
+
+            if (eh != null)
+                eh(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

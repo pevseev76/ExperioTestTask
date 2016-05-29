@@ -23,6 +23,7 @@ namespace ThinClient
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private int nodesCounter = 0;
         private readonly WindsorContainer container = new WindsorContainer();
 
         public GraphDataContext Graph { get; set; }
@@ -36,23 +37,43 @@ namespace ThinClient
             container.Register(Registration.Component.For<DataProvider.IDataProvider>().ImplementedBy<DataProvider.DataProviderClient>());
             
             var client = container.Resolve<DataProvider.IDataProvider>();
-            Graph = new GraphDataContext(client);
+            Graph = new GraphDataContext(client, mainGrid);
             
             DataContext = Graph;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            nodesCounter = 0;
+            
             if(Graph!= null)
                 Graph.Load();
         }
 
-        private void nodesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void List_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var listBox = sender as ListBox;
 
             if(listBox != null)
                 listBox.SelectedIndex = -1;
+        }
+
+        private void Button_Loaded(object sender, RoutedEventArgs e)
+        {
+            var element = sender as FrameworkElement;
+
+            if (element == null)
+                return;
+            var node = element.DataContext as NodeViewModel;
+
+            if (node == null)
+                return;
+
+            node.Element = element;
+            nodesCounter++;
+
+            if (nodesCounter >= Graph.Nodes.Count)
+                Graph.LoadRibs();
         }
     }
 }

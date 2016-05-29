@@ -13,6 +13,7 @@ namespace ThinClient
         double TotalWidth { get; }
         ObservableCollection<NodeViewModel> Nodes { get; }
         ObservableCollection<RibViewModel> Ribs { get; }
-        void Load();
+        void LoadPoints();
+        void LoadRibs();
     }
 }

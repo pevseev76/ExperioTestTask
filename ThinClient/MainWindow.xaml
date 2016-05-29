@@ -11,24 +11,37 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="1*" MinHeight="36"/>
         </Grid.RowDefinitions>
-        
-        <ListBox x:Name="ribsList" Margin="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Ribs}" SelectionChanged="nodesList_SelectionChanged">
-                
+
+        <ListBox x:Name="ribsList" Margin="{Binding GraphMargin}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Ribs}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Line X1="{Binding BeginX}" Y1="{Binding BeginY}" X2="{Binding EndX}" Y2="{Binding EndY}" Stroke="{Binding LineColor}" />
+
+                    <Line X1="{Binding BeginX}" Y1="{Binding BeginY}" X2="{Binding EndX}" Y2="{Binding EndY}" Stroke="{Binding LineColor}" 
+                          HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            
-       </ListBox>
 
-        <ListBox x:Name="nodesList" ItemsSource="{Binding Nodes}" Background="#00FFFFFF" Margin="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectionChanged="nodesList_SelectionChanged">
-        
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <ListBox x:Name="nodesList" ItemsSource="{Binding Nodes}" Background="#00FFFFFF" Margin="{Binding GraphMargin}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 SelectionChanged="List_SelectionChanged">
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Margin="{Binding Distance}">
+                    <Button Width="{Binding Radius}" Height="{Binding Radius}" Margin="{Binding Distance}" 
+                            VerticalAlignment="Top" HorizontalAlignment="Left" Loaded="Button_Loaded">
+
                         <Button.Template>
                             <ControlTemplate>
                                 <Grid>
@@ -46,9 +59,9 @@
                     <WrapPanel Width="{Binding TotalWidth}"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            
+
         </ListBox>
-        
+
         <Button Content="Calculate shortest path" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" Margin="5" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>
