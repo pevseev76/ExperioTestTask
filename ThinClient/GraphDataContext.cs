@@ -127,8 +127,6 @@ namespace ThinClient
             if (adjacentNodes == null)
                 return;
 
-            double Offset = 0.0;
-            
             for (int i = 0; i < Nodes.Count; i++)
             {
                 string id = Nodes[i].ID;
@@ -150,25 +148,16 @@ namespace ThinClient
                     {
                         continue;
                     }
-
-                    var firstElement = Nodes[i].Element;
-                    var secondElement = nodeIn.Element;
-                    var begin = firstElement.TranslatePoint(new Point(firstElement.Width / 2, firstElement.Height), mainContainer);
-                    var end = secondElement.TranslatePoint(new Point(secondElement.Width / 2, 0), mainContainer);
-                    
+                   
                     Ribs.Add(new RibViewModel()
                     {
-                        BeginX = begin.X - GraphMargin.Left,
-                        BeginY = begin.Y - GraphMargin.Top - 1 - Offset,
-                        EndX = end.X - GraphMargin.Left,
-                        EndY = end.Y - GraphMargin.Top - 1 - Offset,
                         LineColor = new SolidColorBrush(totalColor),
                         BeginId = Nodes[i].ID,
                         EndId = nodeIn.ID
 
                     });
 
-                    Offset = Math.Max(Offset, Math.Max(begin.Y - GraphMargin.Top - 1,end.Y - GraphMargin.Top - 1));
+                    CalculateRibs();
                 }
             }
         }
@@ -258,6 +247,29 @@ namespace ThinClient
                 var rib = Ribs.Where(x => string.Equals(x.BeginId, path[i]) && string.Equals(x.EndId, path[i + 1])).First();
                 rib.LineColor = new SolidColorBrush(pathColor);
                 ChoosedPoints.Clear();
+            }
+        }
+
+        public void CalculateRibs()
+        {
+            double offset = 0.0;
+            
+            for (int i = 0; i < Ribs.Count; i++)
+            {
+                var nodeOut = Nodes.Where(x => string.Equals(x.ID, Ribs[i].BeginId)).First();
+                var nodeIn = Nodes.Where(x => string.Equals(x.ID, Ribs[i].EndId)).First();
+
+                var firstElement = nodeOut.Element;
+                var secondElement = nodeIn.Element;
+                var begin = firstElement.TranslatePoint(new Point(firstElement.Width / 2, firstElement.Height), mainContainer);
+                var end = secondElement.TranslatePoint(new Point(secondElement.Width / 2, 0), mainContainer);
+
+                Ribs[i].BeginX = begin.X - GraphMargin.Left;
+                Ribs[i].BeginY = begin.Y - GraphMargin.Top - offset;
+                Ribs[i].EndX = end.X - GraphMargin.Left;
+                Ribs[i].EndY = end.Y - GraphMargin.Top - offset;
+
+                offset = Math.Max(offset, Math.Max(begin.Y - GraphMargin.Top, end.Y - GraphMargin.Top));
             }
         }
 

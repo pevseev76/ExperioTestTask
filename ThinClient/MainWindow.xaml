@@ -34,7 +34,7 @@
 
         <ListBox x:Name="nodesList" ItemsSource="{Binding Nodes}" Background="#00FFFFFF" Margin="{Binding GraphMargin}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.ScrollChanged="ScrollChanged"
                  SelectionChanged="List_SelectionChanged">
 
             <ListBox.ItemTemplate>

@@ -89,5 +89,10 @@ namespace ThinClient
         {
             Graph.CalculateShortestPath();
         }
+
+        private void ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            Graph.CalculateRibs();
+        }
     }
 }
