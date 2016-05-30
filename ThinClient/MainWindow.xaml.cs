@@ -21,7 +21,7 @@ namespace ThinClient
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     {
         private int nodesCounter = 0;
         private readonly WindsorContainer container = new WindsorContainer();
@@ -93,6 +93,11 @@ namespace ThinClient
         private void ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             Graph.CalculateRibs();
+        }
+
+        public override void Dispose()
+        {
+            container.Dispose();
         }
     }
 }
