@@ -36,8 +36,12 @@ namespace ThinClient
 
             container.Register(Registration.Component.For<DataProvider.IDataProvider>().ImplementedBy<DataProvider.DataProviderClient>());
             
-            var client = container.Resolve<DataProvider.IDataProvider>();
-            Graph = new GraphDataContext(client, mainGrid);
+            container.Register(Registration.Component.For<CalculationShortestPath.ICalculatorShortestPath>().ImplementedBy<CalculationShortestPath
+                .CalculatorShortestPathClient>());
+            
+            var dbClient = container.Resolve<DataProvider.IDataProvider>();
+            var cspClient = container.Resolve<CalculationShortestPath.ICalculatorShortestPath>();
+            Graph = new GraphDataContext(dbClient, cspClient, mainGrid);
             
             DataContext = Graph;
         }
@@ -76,9 +80,14 @@ namespace ThinClient
                 Graph.LoadRibs();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnPointClick(object sender, RoutedEventArgs e)
         {
             Graph.PointChoosed(sender as FrameworkElement);
+        }
+
+        private void btnShortestPathClick(object sender, RoutedEventArgs e)
+        {
+            Graph.CalculateShortestPath();
         }
     }
 }

@@ -19,15 +19,18 @@ namespace ThinClient
         private static readonly Color totalColor = Colors.Black;
         private static readonly Color firstPointColor = Colors.Violet;
         private static readonly Color secondPointColor = Colors.LightBlue;
+        private static readonly Color pathColor = Colors.Green;
+        private static readonly Color noPathColor = Colors.Red;
 
         #endregion
 
         private const int pointsDistance = 120;
         private const int pointRadius = 60;
         private const int graphMargin = 10;
-
+        
         private double totalWidth;
         private readonly DataProvider.IDataProvider dataProviderClient;
+        private readonly CalculationShortestPath.ICalculatorShortestPath calculatorShortestPathClient;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -57,9 +60,10 @@ namespace ThinClient
 
         public List<string> ChoosedPoints { get; set; }
 
-        public GraphDataContext(DataProvider.IDataProvider client, UIElement mainContainer)
+        public GraphDataContext(DataProvider.IDataProvider dbClient, CalculationShortestPath.ICalculatorShortestPath cspClient , UIElement mainContainer)
         {
-            dataProviderClient = client;
+            dataProviderClient = dbClient;
+            calculatorShortestPathClient = cspClient;
 
             Nodes = new ObservableCollection<NodeViewModel>();
             Ribs = new ObservableCollection<RibViewModel>();
@@ -90,7 +94,7 @@ namespace ThinClient
                 return;
 
             foreach (var label in labels)
-                Nodes.Add(new NodeViewModel() { ID = label.Key, Element = null, NodeLabel = label.Value, 
+                Nodes.Add(new NodeViewModel() { ID = label.Key.Trim(), Element = null, NodeLabel = label.Value, 
                     NodeBackground = new SolidColorBrush(totalNodeBackground), 
                     NodeBorder = new SolidColorBrush(totalColor),
                     Distance = pointsDistance, Radius = pointRadius });
@@ -106,11 +110,14 @@ namespace ThinClient
             if (dataProviderClient == null)
                 return;
 
-            IDictionary<string, string[]> adjacentNodes = null;
+            IDictionary<string, string[]> adjacentNodes = new Dictionary<string, string[]>();
 
             try
             {
-                adjacentNodes = dataProviderClient.GetAdjacentNodes();
+                var whiteNodes = dataProviderClient.GetAdjacentNodes();
+
+                foreach (var whiteNode in whiteNodes)
+                    adjacentNodes[whiteNode.Key.Trim()] = whiteNode.Value.Select(x => x.Trim()).ToArray();
             }
             catch (Exception)
             {
@@ -175,6 +182,15 @@ namespace ThinClient
             
             if (ChoosedPoints.Count == 0)
             {
+                for (int i = 0; i < Nodes.Count; i++)
+                {
+                    Nodes[i].NodeBackground = new SolidColorBrush(totalNodeBackground);
+                    Nodes[i].NodeBorder = new SolidColorBrush(totalColor);
+                }
+
+                for (int i = 0; i < Ribs.Count; i++)
+                    Ribs[i].LineColor = new SolidColorBrush(totalColor);
+                
                 ChoosedPoints.Add(node.ID);
                 node.NodeBackground = new SolidColorBrush(firstPointColor);
                 return;
@@ -199,6 +215,49 @@ namespace ThinClient
                 ChoosedPoints.Add(node.ID);
                 node.NodeBackground = new SolidColorBrush(secondPointColor);
 
+            }
+        }
+
+        public void CalculateShortestPath()
+        {
+            if (ChoosedPoints.Count < 2)
+                return;
+
+            var path = calculatorShortestPathClient.CalculateShortestPath(ChoosedPoints[0], ChoosedPoints[1]);
+
+            if (path == null)
+            {
+                for (int i = 0; i < ChoosedPoints.Count; i++)
+                {
+                    var node = Nodes.Where(x => string.Equals(x.ID, ChoosedPoints[i])).First();
+
+                    if (node == null)
+                        continue;
+
+                    node.NodeBackground = new SolidColorBrush(noPathColor);
+                }
+
+                ChoosedPoints.Clear();
+
+                return;
+            }
+
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                if (i > 0)
+                {
+                    var node = Nodes.Where(x => string.Equals(x.ID, path[i])).First();
+
+                    if (node == null)
+                        continue;
+
+                    node.NodeBackground = new SolidColorBrush(pathColor);
+                    node.NodeBorder = new SolidColorBrush(pathColor);
+                }
+
+                var rib = Ribs.Where(x => string.Equals(x.BeginId, path[i]) && string.Equals(x.EndId, path[i + 1])).First();
+                rib.LineColor = new SolidColorBrush(pathColor);
+                ChoosedPoints.Clear();
             }
         }
 

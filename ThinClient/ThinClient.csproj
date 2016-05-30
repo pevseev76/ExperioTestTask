@@ -64,6 +64,11 @@
     <Compile Include="GraphDataContext.cs" />
     <Compile Include="IGraph.cs" />
     <Compile Include="RibViewModel.cs" />
+    <Compile Include="Service References\CalculationShortestPath\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\DataProvider\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,6 +112,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\CalculationShortestPath\CalculatorShortestPath.wsdl" />
+    <None Include="Service References\CalculationShortestPath\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CalculationShortestPath\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CalculationShortestPath\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\DataProvider\Arrays.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -119,12 +134,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CalculationShortestPath\" />
     <WCFMetadataStorage Include="Service References\DataProvider\" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +153,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\DataProvider\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CalculationShortestPath\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CalculationShortestPath\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CalculationShortestPath\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CalculationShortestPath\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

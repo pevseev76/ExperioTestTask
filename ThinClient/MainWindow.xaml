@@ -40,7 +40,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Button Width="{Binding Radius}" Height="{Binding Radius}" Margin="{Binding Distance}" 
-                            VerticalAlignment="Top" HorizontalAlignment="Left" Loaded="Button_Loaded" Click="Button_Click">
+                            VerticalAlignment="Top" HorizontalAlignment="Left" Loaded="Button_Loaded" Click="btnPointClick">
 
                         <Button.Template>
                             <ControlTemplate>
@@ -62,6 +62,6 @@
 
         </ListBox>
 
-        <Button Content="Calculate shortest path" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" Margin="5" VerticalAlignment="Stretch"/>
+        <Button Content="Calculate shortest path" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" Margin="5" VerticalAlignment="Stretch" Click="btnShortestPathClick"/>
     </Grid>
 </Window>

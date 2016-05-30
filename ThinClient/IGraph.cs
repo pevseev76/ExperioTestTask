@@ -17,5 +17,6 @@ namespace ThinClient
         void LoadPoints();
         void LoadRibs();
         void PointChoosed(FrameworkElement element);
+        void CalculateShortestPath();
     }
 }
