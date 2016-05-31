@@ -20,7 +20,7 @@
                 <DataTemplate>
 
                     <Line X1="{Binding BeginX}" Y1="{Binding BeginY}" X2="{Binding EndX}" Y2="{Binding EndY}" Stroke="{Binding LineColor}" 
-                          HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                          HorizontalAlignment="Left" VerticalAlignment="Top" StrokeThickness="2" StrokeEndLineCap="Triangle" />
 
                 </DataTemplate>
             </ListBox.ItemTemplate>

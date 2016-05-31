@@ -95,7 +95,7 @@ namespace ThinClient
             Graph.CalculateRibs();
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             container.Dispose();
         }

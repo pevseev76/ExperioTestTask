@@ -265,9 +265,9 @@ namespace ThinClient
                 var end = secondElement.TranslatePoint(new Point(secondElement.Width / 2, 0), mainContainer);
 
                 Ribs[i].BeginX = begin.X - GraphMargin.Left;
-                Ribs[i].BeginY = begin.Y - GraphMargin.Top - offset;
+                Ribs[i].BeginY = begin.Y - GraphMargin.Top - offset - 1;
                 Ribs[i].EndX = end.X - GraphMargin.Left;
-                Ribs[i].EndY = end.Y - GraphMargin.Top - offset;
+                Ribs[i].EndY = end.Y - GraphMargin.Top - offset - 1;
 
                 offset = Math.Max(offset, Math.Max(begin.Y - GraphMargin.Top, end.Y - GraphMargin.Top));
             }
